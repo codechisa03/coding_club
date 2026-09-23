@@ -1,0 +1,46 @@
+services:
+  # Main Stateless Express REST API Service (Horizontally Scalable)
+  - type: web
+    name: coding-club-api
+    env: node
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    numInstances: 3
+    plan: starter
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 5000
+      - key: CORS_ORIGIN
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: FIREBASE_PROJECT_ID
+        sync: false
+      - key: FIREBASE_CLIENT_EMAIL
+        sync: false
+      - key: FIREBASE_PRIVATE_KEY
+        sync: false
+      - key: FIREBASE_STORAGE_BUCKET
+        sync: false
+      - key: REDIS_URL
+        sync: false
+
+  # Standalone Non-Docker Judge Worker Process
+  - type: worker
+    name: coding-club-judge-worker
+    env: node
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: npm run worker
+    plan: starter
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: REDIS_URL
+        sync: false
+      - key: MAX_JUDGE_CONCURRENCY
+        value: "4"

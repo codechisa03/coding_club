@@ -1,0 +1,34 @@
+{
+  "name": "quiz-assessment-backend",
+  "version": "1.0.0",
+  "private": true,
+  "type": "commonjs",
+  "description": "REST API backend for the College Quiz & Assessment Management System (Express + Firebase + Redis).",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "worker": "node src/workers/judgeWorker.js",
+    "dev": "node --watch src/server.js",
+    "setup-admin": "node scripts/setupAdminUser.js",
+    "hash-password": "node scripts/hash-password.js",
+    "check:runtimes": "node scripts/check-runtimes.js",
+    "setup:compilers": "node scripts/setup-compilers.js"
+  },
+  "dependencies": {
+    "@socket.io/redis-adapter": "^8.3.0",
+    "@supabase/supabase-js": "^2.117.0",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0",
+    "express-rate-limit": "^7.4.0",
+    "helmet": "^7.1.0",
+    "ioredis": "^5.4.1",
+    "jsonwebtoken": "^9.0.2",
+    "jwks-rsa": "^4.1.0",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.5-lts.1",
+    "rate-limit-redis": "^4.2.0",
+    "socket.io": "^4.8.1"
+  }
+}

@@ -1,0 +1,64 @@
+services:
+  # 1. API Instances (Load Balanced by Render, connected to Redis)
+  - type: web
+    name: coding-club-api
+    numInstances: 3 # Scale horizontally
+    env: node
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 5000
+      - key: CORS_ORIGIN
+        value: https://www.your-project.com
+      # Firebase Admin Details
+      - key: FIREBASE_PROJECT_ID
+        sync: false
+      - key: FIREBASE_CLIENT_EMAIL
+        sync: false
+      - key: FIREBASE_PRIVATE_KEY
+        sync: false
+      - key: FIREBASE_STORAGE_BUCKET
+        sync: false
+      # Redis connection for caching, syncing, and judge queue
+      - key: REDIS_URL
+        fromService:
+          name: cache-redis
+          type: redis
+          property: connectionString
+      - key: CACHE_ENABLED
+        value: true
+      - key: CACHE_TTL_SECONDS
+        value: 30
+      # Rate Limiting
+      - key: GENERAL_RATE_LIMIT
+        value: 300
+      - key: AUTH_RATE_LIMIT
+        value: 20
+      - key: RATE_LIMIT_WINDOW_MS
+        value: 60000
+
+  # 2. Redis instances (For realtime scaling and job queueing)
+  - type: redis
+    name: cache-redis
+    ipAllowList: []
+    plan: free
+
+  # 3. Judge Worker Instances (Strict API isolation)
+  - type: worker
+    name: coding-club-judge-worker
+    numInstances: 2
+    env: node
+    buildCommand: npm install
+    startCommand: npm run worker
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: REDIS_URL
+        fromService:
+          name: cache-redis
+          type: redis
+          property: connectionString

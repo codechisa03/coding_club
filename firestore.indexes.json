@@ -1,0 +1,47 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "quiz_attempts",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "quiz_id", "order": "ASCENDING" },
+        { "fieldPath": "status", "order": "ASCENDING" },
+        { "fieldPath": "submitted_at", "order": "DESCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "quiz_attempts",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "student_id", "order": "ASCENDING" },
+        { "fieldPath": "status", "order": "ASCENDING" },
+        { "fieldPath": "submitted_at", "order": "DESCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "questions",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "quiz_id", "order": "ASCENDING" },
+        { "fieldPath": "order_index", "order": "ASCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "attendance",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "quiz_id", "order": "ASCENDING" },
+        { "fieldPath": "join_time", "order": "DESCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "landing_media",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "is_active", "order": "ASCENDING" },
+        { "fieldPath": "sort_order", "order": "ASCENDING" }
+      ]
+    }
+  ],
+  "fieldOverrides": []
+}

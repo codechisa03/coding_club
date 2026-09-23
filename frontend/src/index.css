@@ -1,0 +1,185 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  @apply bg-void text-ink-100 font-body antialiased;
+  background-color: #F8FAFC;
+}
+
+::selection {
+  background: rgba(37, 99, 235, 0.20);
+}
+
+/*
+ * JetBrains Mono — disable programming ligatures in code contexts.
+ */
+.font-mono {
+  font-variant-ligatures: none;
+  -webkit-font-variant-ligatures: none;
+  font-feature-settings: "liga" 0, "clig" 0, "calt" 0, "dlig" 0;
+}
+
+/* ── Scrollbar ──────────────────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+  background-clip: padding-box;
+}
+
+/* ── Focus ──────────────────────────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid #2563EB;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ── Reduced motion ─────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ── Card (Flat UI replacing custom glass) ────────────────────────────────────── */
+.glass {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.glass-card {
+  @apply glass rounded-xl;
+}
+
+.glass-panel {
+  @apply glass rounded-2xl;
+}
+
+/* Divider */
+.hairline {
+  border-color: #E2E8F0;
+}
+
+/* Highlighted text instead of glow */
+.text-glow {
+  text-shadow: none;
+  color: #2563EB;
+}
+
+.font-tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Form fields ────────────────────────────────────────────────────────── */
+.field-label {
+  @apply mb-1.5 block text-xs font-semibold uppercase tracking-wide text-ink-500;
+}
+
+.field-input {
+  width: 100%;
+  background: #FFFFFF;
+  border: 1.5px solid rgba(0, 0, 0, 0.15);
+  color: #1C1917;
+  border-radius: 0.75rem;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+}
+.field-input::placeholder {
+  color: #A8A29E;
+}
+.field-input:hover {
+  border-color: rgba(0, 0, 0, 0.25);
+}
+.field-input:focus {
+  background: #FFFFFF;
+  border-color: rgba(79, 110, 247, 0.75);
+  box-shadow: 0 0 0 3px rgba(79, 110, 247, 0.14);
+}
+.field-input[aria-invalid="true"] {
+  border-color: rgba(239, 68, 68, 0.75);
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.10);
+}
+select.field-input {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, #78716C 50%),
+    linear-gradient(135deg, #78716C 50%, transparent 50%);
+  background-position: right 1rem center, right 0.7rem center;
+  background-size: 6px 6px, 6px 6px;
+  background-repeat: no-repeat;
+}
+select.field-input option {
+  background: #FFFFFF;
+  color: #1C1917;
+}
+
+/* ── Select/option global override (light mode) ─────────────────────────── */
+select {
+  color-scheme: light;
+}
+select option {
+  background-color: #FFFFFF;
+  color: #1C1917;
+}
+select:disabled {
+  opacity: 0.5;
+}
+
+/* ── Quiz locked mode ───────────────────────────────────────────────────── */
+body.quiz-locked {
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}
+body.quiz-locked input,
+body.quiz-locked textarea,
+body.quiz-locked [contenteditable="true"] {
+  user-select: text;
+  -webkit-user-select: text;
+}
+
+/* ── Utility: frosted sidebar/modal overlay (admin) ─────────────────────── */
+.surface-white {
+  background: #FFFFFF;
+  border-right: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+/* ── Mobile: prevent iOS auto-zoom on focus ─────────────────────────────── */
+@media (max-width: 640px) {
+  input,
+  select,
+  textarea {
+    font-size: 16px;
+  }
+}
+
+html, body {
+  overflow-x: hidden;
+}
