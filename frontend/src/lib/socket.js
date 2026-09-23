@@ -16,7 +16,7 @@ export function connectAdminSocket(token, handlers = {}) {
   const socket = io(SOCKET_URL, {
     path: "/socket.io",
     auth: { token },
-    transports: ["websocket", "polling"],
+    transports: ["websocket"],
     reconnectionDelay: 1000,
   });
   Object.entries(handlers).forEach(([event, fn]) => socket.on(event, fn));

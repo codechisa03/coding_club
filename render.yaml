@@ -1,4 +1,11 @@
 services:
+  # Managed Redis for Load Balanced Rate Limiting & WebSocket State
+  - type: redis
+    name: coding-club-redis
+    ipAllowList: []
+    plan: free
+
+
   # Main Stateless Express REST API Service (Horizontally Scalable)
   - type: web
     name: coding-club-api
@@ -27,7 +34,10 @@ services:
       - key: FIREBASE_STORAGE_BUCKET
         sync: false
       - key: REDIS_URL
-        sync: false
+        fromService:
+          type: redis
+          name: coding-club-redis
+          property: connectionString
 
   # Standalone Non-Docker Judge Worker Process
   - type: worker
@@ -41,6 +51,9 @@ services:
       - key: NODE_ENV
         value: production
       - key: REDIS_URL
-        sync: false
+        fromService:
+          type: redis
+          name: coding-club-redis
+          property: connectionString
       - key: MAX_JUDGE_CONCURRENCY
         value: "4"
