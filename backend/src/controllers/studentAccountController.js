@@ -176,8 +176,8 @@ const updateAccount = asyncHandler(async (req, res) => {
     const name = clean(body.name);
     if (!name) {
       errors.push("Name is required");
-    } else { 
-      updates.name = name; 
+    } else {
+      updates.name = name;
     }
   }
 
